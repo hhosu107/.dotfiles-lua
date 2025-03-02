@@ -29,6 +29,42 @@ configure_general() {
 }
 
 ################################################################
+# Font
+################################################################
+install_font() {
+
+  set -ex
+  local TMP_DIR="$DOTFILES_TMPDIR/font"
+  mkdir -p "$TMP_DIR" && cd "$TMP_DIR"
+
+  # CascadiaMono Nerd Font 다운로드 및 설치 (wezterm)
+  curl -OL https://github.com/ryanoasis/nerd-fonts/releases/latest/download/CascadiaMono.tar.xz
+
+  tar -xvf CascadiaMono.tar.xz
+  mv CaskaydiaMonoNerdFont* ~/.config/wezterm/fonts/
+
+  # CascadiaMono Nerd Font 다운로드 및 설치 (/Library/Fonts)
+  curl -OL https://github.com/ryanoasis/nerd-fonts/releases/latest/download/CascadiaMono.tar.xz
+  tar -xvf CascadiaMono.tar.xz
+  sudo mv CaskaydiaMonoNerdFont* /Library/Fonts/
+
+
+  # 글꼴 캐시 업데이트
+  atsutil databases -removeUser
+
+  sudo atsutil databases -remove
+  sudo atsutil server -shutdown
+  sudo atsutil server -ping
+}
+
+
+# DOTFILES_TMPDIR이 설정되어 있지 않으면 임시 디렉토리 생성
+if [ -z "$DOTFILES_TMPDIR" ]; then
+  DOTFILES_TMPDIR=$(mktemp -d)
+  trap 'rm -rf "$DOTFILES_TMPDIR"' EXIT
+fi
+
+################################################################
 # Dock
 ################################################################
 
@@ -96,6 +132,7 @@ configure_vscode() {
 ################################################################
 
 all() {
+    install_font
     configure_general
     configure_dock
     configure_screen

@@ -30,6 +30,10 @@ install_font() {
   curl -OL https://github.com/ryanoasis/nerd-fonts/releases/latest/download/CascadiaMono.tar.xz
   tar -xvf CascadiaMono.tar.xz
   mv CaskaydiaMonoNerdFont* ~/.config/wezterm/fonts/
+
+  curl -OL https://github.com/ryanoasis/nerd-fonts/releases/latest/download/CascadiaMono.tar.xz
+  tar -xvf CascadiaMono.tar.xz
+  mv CaskaydiaMonoNerdFont* /usr/share/fonts/
 }
 
 #---------------------------------------------------------------------------------------------------

@@ -11,30 +11,30 @@ return {
         copilot = { model = "claude-3.7-sonnet", max_tokens = 32768 },
         vendors = {
             ---@type AvanteProvider
-            ollama = {
-                __inherited_from = "openai",
-                api_key_name = '',
-                endpoint = "127.0.0.1:11434/v1",
-                model = "qwen2.5-coder",
-            },
+            -- ollama = {
+            --     __inherited_from = "openai",
+            --     api_key_name = '',
+            --     endpoint = "127.0.0.1:11434/v1",
+            --     model = "qwen2.5-coder",
+            -- },
 
             ---@type AvanteProvider
-            mlx = {
-                __inherited_from = "openai",
-                api_key_name = '',
-                endpoint = "127.0.0.1:11433/v1",
-                model = "mlx-community/Qwen2.5-Coder-7B-Instruct-4bit",
-                max_tokens = 16384,
-            },
+            -- mlx = {
+            --     __inherited_from = "openai",
+            --     api_key_name = '',
+            --     endpoint = "127.0.0.1:11433/v1",
+            --     model = "mlx-community/Qwen2.5-Coder-7B-Instruct-4bit",
+            --     max_tokens = 16384,
+            -- },
 
             ---@type AvanteProvider
-            deepseek = {
-                __inherited_from = "openai",
-                api_key_name = "DEEPSEEK_API_KEY",
-                endpoint = "https://api.deepseek.com",
-                model = "deepseek-chat",
-                max_tokens = 32768,
-            },
+            -- deepseek = {
+            --     __inherited_from = "openai",
+            --     api_key_name = "DEEPSEEK_API_KEY",
+            --     endpoint = "https://api.deepseek.com",
+            --     model = "deepseek-chat",
+            --     max_tokens = 32768,
+            -- },
         },
         behavior = {
             enable_cursor_planning_mode = true,
