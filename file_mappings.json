@@ -1,6 +1,7 @@
 {
     "~/.ssh/config" : "home/ssh/config",
     "~/.ssh/rc" : "home/ssh/rc",
+    "~/.ssh/add_keys.sh" : "home/ssh/add_keys.sh",
 
     "~/.bashrc" : "home/bashrc",
     "~/.sh_aliases" : "home/sh_aliases",
