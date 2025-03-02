@@ -6,11 +6,15 @@ scriptencoding utf-8
 set encoding=utf-8
 set fileencoding=utf-8
 set shell=/bin/bash
+set diffopt+=iwhite,vertical
 set pastetoggle=<F8>
 set scrolloff=3
+set switchbuf+=usetab,split
 set startofline
 set splitbelow splitright
+set lazyredraw
 set nobackup
+set nowritebackup
 set noswapfile
 if !has('nvim')
     set nocompatible
@@ -19,8 +23,17 @@ set noshowmode
 set nofoldenable
 set nowrap
 set showcmd
+set updatetime=500
+set termguicolors
 set signcolumn=yes
 set colorcolumn=79,99,119
+
+" History
+if has('persistent_undo')
+    set undofile
+    let &undodir = $HOME . '/.vim/undodir'
+    silent! call mkdir(&undodir, 'p')
+endif
 
 " mouse
 set mouse=a
@@ -31,22 +44,45 @@ set autoindent
 set smartindent
 
 " Tab
-set softtabstop=4
-set shiftwidth=4
+autocmd FileType make setlocal noexpandtab
+set softtabstop=2
+set shiftwidth=2
 set expandtab
+autocmd BufEnter * if &filetype == "make" | setlocal noexpandtab | endif
+autocmd BufEnter * if &filetype == "textproto" | setlocal noexpandtab | endif
 
 " Searching
+set incsearch
 set ignorecase
 set smartcase
-set hlsearch
+set hlsearch | nohlsearch
 set nowrapscan
-set incsearch
 
 " Line Number Column
 set number
 set cursorline
-" Pair Matching
+" line width limit column color
+set textwidth=100
+set formatoptions-=t
+set colorcolumn=+1,+2,+3
+" Listchars
+set list
+let &listchars = 'tab:> ,extends:»,precedes:«,nbsp:·,trail:·'
+" Pair matching
+set matchpairs+=<:>
 set showmatch
+" Wildmenu
+set wildmode=longest,full
+
+" Completion
+set hidden
+set completeopt=preview,menuone,noinsert,noselect
+set shortmess+=c
+if has('patch-8.1.1564')
+    set signcolumn=number
+elseif has('nvim') ? has('nvim-0.2') : 1
+    set signcolumn=yes
+endif
 
 filetype plugin on
 syntax on
@@ -54,6 +90,15 @@ syntax on
 "
 " Key Mappings
 "
+let g:mapleader = ','
+
+" Easy file save without switching IME
+cabbrev ㅈ w
+cabbrev ㅂ wq
+cabbrev ㅈㅂ wq
+
+" Easy command-line mode
+nnoremap ; :
 
 " Easy Home/End
 inoremap <C-a> <ESC>I
@@ -62,14 +107,34 @@ nnoremap <C-a> ^
 nnoremap <C-e> $
 vnoremap <C-a> ^
 vnoremap <C-e> $
+" Easy horizontal scrolling
+noremap <esc>l 3zl
+noremap <esc>h 3zh
+noremap <a-l> 3zl
+noremap <a-h> 3zh
 " Easy Delete Key
 vnoremap <silent> <backspace> "_d
+" Easy file save
+nnoremap <silent> <C-s>      :update<CR>
+inoremap <silent> <C-s> <ESC>:update<CR>
+vnoremap <silent> <C-s> <ESC>:update<CR>
 " Easy Indentation
 vnoremap <silent> <Tab> >gv
 vnoremap <silent> <S-Tab> <gv
 " Easy Splitting
 nnoremap <silent> <C-_> :split<CR>
 nnoremap <silent> <C-\> :vertical split<CR>
+" Easy resizing
+nnoremap <silent> <esc>h :vertical resize -5<CR>
+nnoremap <silent> <esc>j :resize -3<CR>
+nnoremap <silent> <esc>k :resize +3<CR>
+nnoremap <silent> <esc>l :vertical resize +5<CR>
+nnoremap <silent> <a--> :split<CR>
+nnoremap <silent> <a-\> :vertical split<CR>
+nnoremap <silent> <a-h> :vertical resize -5<CR>
+nnoremap <silent> <a-j> :resize -3<CR>
+nnoremap <silent> <a-k> :resize +3<CR>
+nnoremap <silent> <a-l> :vertical resize +5<CR>
 " Easy Navigation
 nnoremap <C-h> <C-w><C-h>
 nnoremap <C-j> <C-w><C-j>
@@ -81,6 +146,17 @@ nnoremap <silent> <C-A-j> :resize -2<CR>
 nnoremap <silent> <C-A-k> :resize +2<CR>
 nnoremap <silent> <C-A-l> :vertical resize +2<CR>
 " Tab Navigations
+nnoremap <esc>t :tabnew<CR>
+nnoremap <esc>T :-tabnew<CR>
+nnoremap <esc>1 1gt
+nnoremap <esc>2 2gt
+nnoremap <esc>3 3gt
+nnoremap <esc>4 4gt
+nnoremap <esc>5 5gt
+nnoremap <esc>6 6gt
+nnoremap <esc>7 7gt
+nnoremap <esc>8 8gt
+nnoremap <esc>9 9gt
 nnoremap <silent> <a-t> :tabnew<CR>
 nnoremap <silent> <a-T> :-tabnew<CR>
 nnoremap <silent> <a-1> 1gt
@@ -108,6 +184,31 @@ nnoremap <C-s> :w<CR>
 inoremap <C-s> <ESC>:w<CR>
 " Visual to search
 vnoremap // "vy/\V<C-R>=escape(@v,'/\')<CR><CR>
+
+" Easy newline insert
+function! s:CustomEnter()
+    if &modifiable
+        normal! o
+    else
+        " Exception for quickfix buffer and other unmodifiable buffers.
+        " See https://vi.stackexchange.com/a/3129
+        execute 'normal! \<CR>'
+    endif
+endfunction
+nnoremap <CR> :call <SID>CustomEnter()<CR>
+
+" Easy drag select
+function! s:DragSelectMode()
+    if &signcolumn != 'no'
+        let s:previous_scl = &signcolumn
+        set signcolumn=no
+        set nonumber
+    else
+        let &signcolumn = s:previous_scl
+        set number
+    endif
+endfunction
+nnoremap <F9> :call <SID>DragSelectMode()<CR>
 
 "
 " Commands
@@ -375,3 +476,23 @@ autocmd FileType rust setlocal matchpairs+=<:>
 autocmd FileType markdown DisableStripWhitespaceOnSave
 autocmd FileType scss setlocal sw=2 sts=2 et
 autocmd FileType css setlocal sw=2 sts=2 et
+
+"
+" Define a 'vimrc' augroup
+"
+augroup vimrc
+    autocmd!
+
+    " Vim automatic reload
+    autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checktime | endif
+    autocmd FileChangedShellPost *
+        \ echohl WarningMsg | echo 'File ' . expand('<afile>') . ' changed on disk. Buffer reloaded.' | echohl None
+augroup END
+
+"
+" Local configs
+"
+
+if filereadable($HOME . '/.vimrc.local')
+    source $HOME/.vimrc.local
+endif

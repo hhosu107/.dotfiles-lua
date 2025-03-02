@@ -37,6 +37,13 @@ o.showcmd = true
 o.signcolumn = 'yes'
 o.colorcolumn = {'79', '99', '119'}
 
+-- History
+if vim.fn.has('persistent_undo') then
+    o.undodir = vim.fn.stdpath('data') .. '/undodir'
+    o.undofile = true
+    vim.fn.mkdir(vim.fn.stdpath('data') .. '/undodir', 'p')
+end
+
 -- mouse
 o.mouse = 'a'
 
@@ -45,10 +52,15 @@ o.cindent = true
 o.autoindent = true
 o.smartindent = true
 
--- Taib
-o.softtabstop = 4
-o.shiftwidth = 4
+-- Tab
+o.softtabstop = 2
+o.shiftwidth = 2
 o.expandtab = true
+
+-- for files whose filetype is one of make and textproto, do not expand tab.
+vim.cmd([[
+    autocmd FileType make,textproto setlocal noexpandtab
+]])
 
 -- Searching
 o.ignorecase = true
@@ -63,6 +75,11 @@ o.cursorline = true
 -- Pair Matching
 o.showmatch = true
 
+-- Completion
+o.hidden = true
+o.completeopt = {'preview', 'menuone', 'noinsert', 'noselect'}
+o.shortmess = o.shortmess + 'c'
+o.signcolumn = 'yes'
 
 --
 -- diagnostic

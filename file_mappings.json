@@ -8,6 +8,8 @@
     "~/.config/nvim" : "home/config/nvim",
 
     "~/.gitconfig" : "home/gitconfig",
+    "~/.gitconfig.local" : "home/gitconfig.local",
+    "~/.gitconfig-workspaces": "home/gitconfig-workspaces",
     "~/.gitexclude" : "home/gitexclude",
 
     "~/.zshrc" : "home/zshrc",

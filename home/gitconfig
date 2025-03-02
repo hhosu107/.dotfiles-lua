@@ -129,3 +129,7 @@
     path = ~/.gitconfig.local
 [include]
     path = ~/.gitconfig.company.local
+[include]
+    path = ~/.gitconfig-workspaces
+[includeIf "gitdir:~/company_workspaces/"]
+    path = ~/company_workspaces/.gitconfig
