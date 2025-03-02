@@ -234,7 +234,7 @@ install_ncurses() {
 }
 
 install_zsh() {
-  local ZSH_VER="5.8"
+  local ZSH_VER="5.9"
   local TMP_ZSH_DIR="$DOTFILES_TMPDIR/zsh/"; mkdir -p "$TMP_ZSH_DIR"
   local ZSH_SRC_URL="https://sourceforge.net/projects/zsh/files/zsh/${ZSH_VER}/zsh-${ZSH_VER}.tar.xz/download"
 
@@ -543,7 +543,7 @@ install_go() {
   fi
   mkdir -p "$HOME/.go"
 
-  local GO_VERSION="1.21.4"
+  local GO_VERSION="1.24.0"
   local GO_DOWNLOAD_URL="https://dl.google.com/go/go${GO_VERSION}.linux-$(_get_os_type 1).tar.gz"
   TMP_GO_DIR="$DOTFILES_TMPDIR/go/"
 

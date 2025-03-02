@@ -24,35 +24,35 @@ install_essential_packages() {
         openssh-server mosh rdate \
         )
 
-    sudo apt-get install -y ${packages[@]}
+    sudo apt install -y ${packages[@]}
 }
 
 install_python_packages() {
-    sudo apt-get install -y python-dev virtualenv virtualenvwrapper
-    sudo apt-get install -y python-pip python3-pip
+    sudo apt install -y python-dev virtualenv virtualenvwrapper
+    sudo apt install -y python-pip python3-pip
 }
 
 install_ppa_git() {
     # https://launchpad.net/~git-core/+archive/ubuntu/ppa
     sudo add-apt-repository -y ppa:git-core/ppa
-    sudo apt-get update
-    sudo apt-get install -y git-all git-extras
+    sudo apt update
+    sudo apt install -y git-all git-extras
 }
 
 install_ppa_vim8() {
     # For Ubuntu 14.04 and 16.04
     # https://launchpad.net/~jonathonf/+archive/ubuntu/vim
     sudo add-apt-repository -y ppa:jonathonf/vim
-    sudo apt-get update
-    sudo apt-get install -y vim vim-doc vim-nox
-    #sudo apt-get install -y vim-gnome vim-gtk
+    sudo apt update
+    sudo apt install -y vim vim-doc vim-nox
+    #sudo apt install -y vim-gnome vim-gtk
 }
 
 install_neovim() {
     # https://launchpad.net/~neovim-ppa/+archive/ubuntu/unstable
     sudo add-apt-repository -y ppa:neovim-ppa/unstable
-    sudo apt-get update
-    sudo apt-get install -y neovim
+    sudo apt update
+    sudo apt install -y neovim
 }
 
 install_latest_tmux() {
@@ -67,7 +67,7 @@ install_latest_tmux() {
         echo "$(tmux -V) : $(which tmux)"
         echo "  Already installed, skipping installation"; return
     fi
-    sudo apt-get install -y libevent-dev libncurses5-dev libutempter-dev || exit 1;
+    sudo apt install -y libevent-dev libncurses5-dev libutempter-dev || exit 1;
     TMP_TMUX_DIR="/tmp/.tmux-src/"
 
     TMUX_TGZ_FILE="tmux-2.5.tar.gz"
@@ -87,14 +87,14 @@ install_ppa_nginx() {
 
     # https://launchpad.net/~nginx/+archive/ubuntu/stable
     sudo add-apt-repository -y ppa:nginx/stable
-    sudo apt-get update
-    sudo apt-get install -y nginx-full
+    sudo apt update
+    sudo apt install -y nginx-full
 }
 
 install_node() {
     # https://github.com/nodesource/distributions/tree/master/deb
     curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
-    sudo apt-get install -y nodejs
+    sudo apt install -y nodejs
 
     # some default global packages
     sudo npm install -g http-server
@@ -127,7 +127,7 @@ install_exa() {
 }
 
 install_all() {
-    # TODO dependency management: duplicated 'apt-get update'?
+    # TODO dependency management: duplicated 'apt update'?
     install_essential_packages
     install_python_packages
     install_node
