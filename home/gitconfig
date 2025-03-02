@@ -1,22 +1,24 @@
 [user]
-    name = Changmin Choi
-    email = cmchoi9901@gmail.com
-    signingkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF03Y5jSH8Iige7YH5pu9+YR7gUNnr3AKSloEFYotu9Z"
+    name = Chansu Park
+    email = hhosu107@gmail.com
 [core]
     editor = nvim
     pager = less -+XF -Qc
     excludesfile = ~/.gitexclude
     fscache = yes
+    preloadindex = yes
     autocrlf = no
     quotepath = no
     precomposeunicode = yes
+[init]
+    defaultBranch = main
 [log]
     date = iso8601
 [color]
     ui = auto
 [diff]
     renames = copies
-    tool = vimdiff
+    tool = nvimdiff
 [difftool]
     prompt = no
 [fetch]
@@ -28,25 +30,102 @@
 [pull]
     rebase = false
 [merge]
-    tool = vimdiff
+    tool = nvimdiff
     conflictstyle = diff3
-[credential]
-    helper = cache --timeout=3600
-[credential "https://github.com"]
-    username = ryul99
-[filter "lfs"]
-    required = true
-    clean = git-lfs clean -- %f
-    smudge = git-lfs smudge -- %f
-[alias]
-    g = "log --graph --pretty=\"format:%C(auto)%h%d %s%x1b[38;5;022m% GS%x1b[0m\""
-[url "ssh://git@github.com/"]
-    pushInsteadOf = https://github.com/
-[safe]
-    directory = *
 [gpg]
     format = ssh
 [gpg "ssh"]
     defaultKeyCommand = ssh-add -L
 [commit]
     gpgsign = true
+[rerere]
+    enabled = yes
+[stash]
+    showStash = True
+[status]
+    showPatch = true
+[submodule]
+    fetchJobs = 0
+[credential]
+    helper = cache --timeout=3600
+[credential "https://github.com"]
+    username = hhosu107
+[credential "https://git.upnl.org"]
+    username = hhosu107
+[filter "lfs"]
+    required = true
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+[alias]
+    g = "log --graph --pretty=\"format:%C(auto)%h%d %s%x1b[38;5;022m% GS%x1b[0m\""
+
+    # git lg
+    #
+    # Print git log as a graph
+    lg = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
+
+    # git all
+    #
+    # It shows *all* git commit references in a graph format, including dangling
+    # or unreachable commits (popped stashes, etc)
+	  all = "!_() { git log --oneline --graph --reflog $(git fsck --unreachable | perl -ne 'print \"$1\\n\" if /^\\w+ commit ([0-9a-f]+)$/'); }; _"
+
+  	# git pr [<remote>]
+
+   	#
+    # Fetch pull requests from GitHub. Fetch "origin" if remote is not
+    # specified.
+    #
+    # Usage:
+    #   git pr
+
+    #   git pr other
+    pr = "!_() { git config fetch.prune no && git fetch ${1:-origin} +refs/pull/*/head:refs/remotes/${1:-origin}/pr/*; }; _"
+
+
+    # git b <filename>
+    #
+    # Beautiful `git blame`
+    #
+    # Usage:
+    #   git b README.md
+    b = "!_() { git blame -sfMCCC $GIT_PREFIX$1 | perl -pe 's|^(.{8}) .+? ([0-9]+?)\\) |\\x1b[38;5;243m$1 \\x1b[38;5;216;48;5;234m @{[sprintf(\"%5d\",$2)]} \\x1b[0m |g' | $(git config core.pager) -R; }; _"
+
+    # git g
+    #
+    # Git graph with signature info
+    g = "log --graph --pretty='format:%C(auto)%h%d %s%x1b[38;5;022m% GS %x1b[38;5;239m%cr%x1b[0m'"
+
+    # git h <filename>
+    #
+    # Show history of a file
+    #
+    # Usage:
+    #   git h README.md
+    h = "log -p -M --follow"
+
+    # git sed <regex>
+    #
+    # Find and replace patterns with given regex.
+    #
+    # Usage:
+    #   git sed 's/yolo/swag/g'
+    sed = "!_() { git ls-files -z | xargs -0 perl -i -pe ${1}; }; _"
+
+
+    # git chdate
+    #
+    # Change git commit date and author date
+
+    #
+    # Usage:
+    #   git chdate 2013-05-05T12:34:56+0800
+    chdate = "!_() { GIT_COMMITTER_DATE=${1} git commit --amend --no-edit --date ${1}; }; _"
+[url "ssh://git@github.com/"]
+    pushInsteadOf = https://github.com/
+[safe]
+    directory = *
+[include]
+    path = ~/.gitconfig.local
+[include]
+    path = ~/.gitconfig.company.local

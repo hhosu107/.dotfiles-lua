@@ -94,10 +94,10 @@ if [[ -f "${ZINIT_HOME}/zinit.zsh" ]]; then
     }
 
     zinit wait lucid for \
-        has"pyenv" id-as"pyenv" atclone"pyenv init - --no-rehash zsh > pyenv.zsh" atpull"%atclone" run-atpull pick"pyenv.zsh" nocompile"!" atload"!__zshrc_pyenv_atload" ryul99/zinit-null \
-        if"[ -d ~/.pyenv/plugins/pyenv-virtualenv/ ]" id-as"pyenv-virtualenv" atclone"pyenv virtualenv-init - zsh > pyenv-virtualenv.zsh" atpull"%atclone" run-atpull pick"pyenv-virtualenv.zsh" nocompile"!" ryul99/zinit-null \
+        has"pyenv" id-as"pyenv" atclone"pyenv init - --no-rehash zsh > pyenv.zsh" atpull"%atclone" run-atpull pick"pyenv.zsh" nocompile"!" atload"!__zshrc_pyenv_atload" hhosu107/zinit-null \
+        if"[ -d ~/.pyenv/plugins/pyenv-virtualenv/ ]" id-as"pyenv-virtualenv" atclone"pyenv virtualenv-init - zsh > pyenv-virtualenv.zsh" atpull"%atclone" run-atpull pick"pyenv-virtualenv.zsh" nocompile"!" hhosu107/zinit-null \
         rupa/z \
-        if"[ -f ~/.asdf/asdf.sh ]" id-as"asdf" pick"$HOME/.asdf/asdf.sh" nocompile ryul99/zinit-null
+        if"[ -f ~/.asdf/asdf.sh ]" id-as"asdf" pick"$HOME/.asdf/asdf.sh" nocompile hhosu107/zinit-null
         # has"fzf" id-as"fzf" multisrc"(completion|key-bindings).zsh" compile"(completion|key-bindings).zsh" svn https://github.com/junegunn/fzf/trunk/shell
 
     # aliases
@@ -109,10 +109,10 @@ if [[ -f "${ZINIT_HOME}/zinit.zsh" ]]; then
     zinit wait lucid for \
         light-mode zsh-users/zsh-completions \
         light-mode MenkeTechnologies/zsh-cargo-completion \
-        has"helm" id-as"helm-completion" as"completion" atclone"helm completion zsh > _helm" atpull"%atclone" run-atpull pick"_helm" ryul99/zinit-null \
-        has"poetry" id-as"poetry-completion" as"completion" atclone"poetry completions zsh > _poetry" atpull"%atclone" run-atpull pick"_poetry" ryul99/zinit-null \
-        has"uv" id-as"uv-completion" as"completion" atclone"uv generate-shell-completion zsh > _uv" atpull"%atclone" run-atpull pick"_uv" nocompile ryul99/zinit-null \
-        has"uvx" id-as"uvx-completion" as"completion" atclone"uvx generate-shell-completion zsh > _uvx" atpull"%atclone" run-atpull pick"_uvx" nocompile ryul99/zinit-null
+        has"helm" id-as"helm-completion" as"completion" atclone"helm completion zsh > _helm" atpull"%atclone" run-atpull pick"_helm" hhosu107/zinit-null \
+        has"poetry" id-as"poetry-completion" as"completion" atclone"poetry completions zsh > _poetry" atpull"%atclone" run-atpull pick"_poetry" hhosu107/zinit-null \
+        has"uv" id-as"uv-completion" as"completion" atclone"uv generate-shell-completion zsh > _uv" atpull"%atclone" run-atpull pick"_uv" nocompile hhosu107/zinit-null \
+        has"uvx" id-as"uvx-completion" as"completion" atclone"uvx generate-shell-completion zsh > _uvx" atpull"%atclone" run-atpull pick"_uvx" nocompile hhosu107/zinit-null
 
     # last group
     zinit wait lucid for \

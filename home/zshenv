@@ -79,8 +79,8 @@ if ! (( ${path[(I)$HOME/.local/bin]} )); then
 fi
 
 # dotfiles-populated bin.
-if [ -d $HOME/.dotfiles/bin/ ]; then
-  path=( $path $HOME/.dotfiles/bin )
+if [ -d $HOME/.dotfiles-lua/bin/ ]; then
+  path=( $path $HOME/.dotfiles-lua/bin )
 fi
 
 ### >>> External Programs >>>
@@ -162,7 +162,7 @@ fi
 
 # scala setting (coursier install dir)
 if [ -d ~/.local/share/coursier/bin ]; then
-    export PATH="$PATH:/home/ryul99/.local/share/coursier/bin"
+    export PATH="$PATH:/home/charlese/.local/share/coursier/bin"
 fi
 
 # fzf setting

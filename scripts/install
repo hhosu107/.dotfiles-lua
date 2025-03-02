@@ -11,9 +11,9 @@ if _version_check "$(git --version | cut -d' ' -f3)" "2.8"; then
     GIT_FLAGS="-j8"
 fi
 
-GIT_REPO="git@github.com:ryul99/.dotfiles.git"
+GIT_REPO="git@github.com:hhosu107/.dotfiles-lua.git"
 
 set -x
 set -e
 # git clone --recursive ${GIT_FLAGS} ${GIT_REPO} ~/.dotfiles || \
-git clone --recursive ${GIT_FLAGS} "https://github.com/ryul99/.dotfiles.git" ~/.dotfiles
+git clone --recursive ${GIT_FLAGS} "https://github.com/hhosu107/.dotfiles-lua.git" ~/.dotfiles-lua
