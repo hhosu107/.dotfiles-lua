@@ -14,6 +14,7 @@
     "~/.gitexclude" : "home/gitexclude",
 
     "~/.zshrc" : "home/zshrc",
+    "~/.zshrc.local" : "home/zshrc.local",
     "~/.zshenv" : "home/zshenv",
     "~/.p10k.zsh" : "home/p10k.zsh",
 
