@@ -99,11 +99,34 @@ if [[ -f "${ZINIT_HOME}/zinit.zsh" ]]; then
         rupa/z \
         if"[ -f ~/.asdf/asdf.sh ]" id-as"asdf" pick"$HOME/.asdf/asdf.sh" nocompile hhosu107/zinit-null
         # has"fzf" id-as"fzf" multisrc"(completion|key-bindings).zsh" compile"(completion|key-bindings).zsh" svn https://github.com/junegunn/fzf/trunk/shell
+        #
+    #
+    # fzf settings
+    #
 
-    # Automaticall expand all aliases
+    # Easily access the directories you visit most often.
+    #
+    # Usage:
+    #     $ z work
+    #     $ <CTRL-G>work
+    zinit light agkozak/zsh-z
+    zinit light andrewferrier/fzf-z
+    export FZFZ_SUBDIR_LIMIT=0
+
+    # Automatically expand all aliases
     ZSH_EXPAND_ALL_DISABLE=word
     zinit wait lucid for \
         light-mode simnalamburt/zsh-expand-all
+
+    # sbin ice from git
+    zinit wait lucid for \
+        light-mode zdharma-continuum/zinit-annex-bin-gem-mode
+
+    # fzf
+    zinit for \
+        from'gh-r' sbin'fzf' junegunn/fzf \
+        https://github.com/junegunn/fzf/raw/master/shell/{'completion','key-bindings'}.zsh
+    zinit load tirr-c/zsh-env-setup
 
     # aliases
     zinit wait lucid for \

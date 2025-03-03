@@ -4,5 +4,5 @@
   path = ~/personal_git/.gitconfig
 [includeIf "gitdir:~/workspaces/**"]
   path = ~/workspaces/.gitconfig
-[includeIf "gitdir:~/.dotfiles/**"]
+[includeIf "gitdir:~/.dotfiles-lua/**"]
   path = ~/.dotfiles-lua/home/gitconfig-dotfiles
