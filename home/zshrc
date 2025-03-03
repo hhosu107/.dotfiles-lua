@@ -123,10 +123,12 @@ if [[ -f "${ZINIT_HOME}/zinit.zsh" ]]; then
         sbin'fzf' junegunn/fzf \
         https://github.com/junegunn/fzf/raw/master/shell/{'completion','key-bindings'}.zsh
     zinit load tirr-c/zsh-env-setup
+    zinit load tirr-c/git-select-branch
 
     # aliases
     zinit wait lucid for \
         light-mode simnalamburt/cgitc \
+        light-mode simnalamburt/ctrlf \
         light-mode ahmetb/kubectl-aliases
 
     # completions
