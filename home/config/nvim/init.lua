@@ -102,7 +102,7 @@ vim.diagnostic.config({
 require('utils.pynvim')
 require('utils.fixfnkeys')
 require('utils.compat')
-require('utils.augroup').setup()
+-- require('utils.augroup').setup()
 
 require("config.lazy")
 -- require("lazy").setup("configs")

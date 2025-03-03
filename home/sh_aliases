@@ -61,6 +61,7 @@ if hash nvim 2>/dev/null; then
     alias vi=nvim
     alias vim=nvim
     alias nvi=nvim
+    alias vimdiff='nvim -d'
 
     alias nvis="nvim -S Session.vim"
     alias vis="nvim -S Session.vim"
