@@ -418,7 +418,7 @@ install_neovim() {
   local NEOVIM_LATEST_VERSION=$(\
     curl -fL https://api.github.com/repos/neovim/neovim/releases/latest 2>/dev/null | \
     python3 -c 'import json, sys; print(json.load(sys.stdin)["tag_name"])'\
-  )   # usually "stable"
+  )  # usually "stable"
   : "${NEOVIM_VERSION:=$NEOVIM_LATEST_VERSION}"
 
   if [[ $NEOVIM_VERSION != "stable" ]] && [[ $NEOVIM_VERSION != v* ]]; then
@@ -427,15 +427,17 @@ install_neovim() {
   test -n "$NEOVIM_VERSION"
 
   local VERBOSE=""
+  local NIGHTLY=false
   for arg in "$@"; do
     if [ "$arg" == "--nightly" ]; then
       NEOVIM_VERSION="nightly";
+      NIGHTLY=true;
     elif [ "$arg" == "-v" ] || [ "$arg" == "--verbose" ]; then
       VERBOSE="--verbose"
     fi
   done
 
-  if [ "${NEOVIM_VERSION}" == "nightly" ]; then
+  if $NIGHTLY; then
     echo -e "${COLOR_YELLOW}Installing neovim nightly. ${COLOR_NONE}"
   else
     echo -e "${COLOR_YELLOW}Installing neovim stable ${NEOVIM_VERSION}. ${COLOR_NONE}"
@@ -444,28 +446,63 @@ install_neovim() {
   sleep 1;  # allow users to read above comments
 
   local TMP_NVIM_DIR="$DOTFILES_TMPDIR/neovim"; mkdir -p $TMP_NVIM_DIR
-  local NVIM_DOWNLOAD_URL="https://github.com/neovim/neovim/releases/download/${NEOVIM_VERSION}/nvim.appimage"
+  local ARCH=$(uname -m)
+  local OS=$(uname -s)
+  local NVIM_APPIMAGE=""
+
+  if [[ "$OS" == "Linux" ]]; then
+      case "$ARCH" in
+          x86_64)
+              NVIM_APPIMAGE="nvim-linux-x86_64.appimage"
+              ;;
+          aarch64|arm64)
+              NVIM_APPIMAGE="nvim-linux-arm64.appimage"
+              ;;
+          *)
+              echo -e "${COLOR_RED}Unsupported architecture: $ARCH${COLOR_NONE}"
+              return 1
+              ;;
+      esac
+  elif [[ "$OS" == "Darwin" ]]; then
+      case "$ARCH" in
+          x86_64)
+              NVIM_APPIMAGE="nvim-macos.appimage"
+              ;;
+          arm64)
+              NVIM_APPIMAGE="nvim-macos-arm64.appimage"
+              ;;
+          *)
+              echo -e "${COLOR_RED}Unsupported architecture: $ARCH${COLOR_NONE}"
+              return 1
+              ;;
+      esac
+  else
+      echo -e "${COLOR_RED}Unsupported OS: $OS${COLOR_NONE}"
+      return 1
+  fi
+
+  local NVIM_DOWNLOAD_URL="https://github.com/neovim/neovim/releases/download/${NEOVIM_VERSION}/$NVIM_APPIMAGE"
 
   set -x
   cd $TMP_NVIM_DIR
-  wget --backups=1 $NVIM_DOWNLOAD_URL      # always overwrite, having only one backup
+  wget --backups=1 "$NVIM_DOWNLOAD_URL"  # always overwrite, having only one backup
 
-  chmod +x nvim.appimage
+  chmod +x "$NVIM_APPIMAGE"
   rm -rf "$TMP_NVIM_DIR/squashfs-root"
-  ./nvim.appimage --appimage-extract >/dev/null   # into ./squashfs-root
+  "./$NVIM_APPIMAGE" --appimage-extract >/dev/null  # into ./squashfs-root
 
   # Install into ~/.local/neovim/ and put a symlink into ~/.local/bin
   local NEOVIM_DEST="$HOME/.local/neovim"
   echo -e "${COLOR_GREEN}[*] Copying neovim files to $NEOVIM_DEST ... ${COLOR_NONE}"
-  mkdir -p $NEOVIM_DEST/bin/
-  cp -f squashfs-root/usr/bin/nvim "$NEOVIM_DEST/bin/nvim" \
+  mkdir -p "$NEOVIM_DEST/bin/"
+  cp -f "squashfs-root/usr/bin/nvim" "$NEOVIM_DEST/bin/nvim" \
     || (echo -e "${COLOR_RED}Copy failed, please kill all nvim instances. (killall nvim)${COLOR_NONE}"; exit 1)
   rm -rf "$NEOVIM_DEST"
-  cp -r squashfs-root/usr "$NEOVIM_DEST"
+  cp -r "squashfs-root/usr" "$NEOVIM_DEST"
   rm -f "$PREFIX/bin/nvim"
   ln -sf "$NEOVIM_DEST/bin/nvim" "$PREFIX/bin/nvim"
 
-  $PREFIX/bin/nvim --version | head -n3
+  "$PREFIX/bin/nvim" --version | head -n3
 }
 
 install_just() {
