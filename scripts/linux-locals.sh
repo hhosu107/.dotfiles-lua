@@ -450,7 +450,9 @@ install_neovim() {
   local OS=$(uname -s)
   local NVIM_FILENAME=""
 
-  if [[ "$OS" == "Linux" ]]; then
+  if _version_check "v0.10.3" "$NEOVIM_VERSION"; then
+      NVIM_FILENAME="nvim.appimage"
+  elif [[ "$OS" == "Linux" ]]; then
       case "$ARCH" in
           x86_64)
               NVIM_FILENAME="nvim-linux-x86_64.appimage"
