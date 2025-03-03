@@ -100,6 +100,11 @@ if [[ -f "${ZINIT_HOME}/zinit.zsh" ]]; then
         if"[ -f ~/.asdf/asdf.sh ]" id-as"asdf" pick"$HOME/.asdf/asdf.sh" nocompile hhosu107/zinit-null
         # has"fzf" id-as"fzf" multisrc"(completion|key-bindings).zsh" compile"(completion|key-bindings).zsh" svn https://github.com/junegunn/fzf/trunk/shell
 
+    # Automaticall expand all aliases
+    ZSH_EXPAND_ALL_DISABLE=word
+    zinit wait lucid for \
+        light-mode simnalamburt/zsh-expand-all
+
     # aliases
     zinit wait lucid for \
         light-mode simnalamburt/cgitc \
@@ -114,9 +119,9 @@ if [[ -f "${ZINIT_HOME}/zinit.zsh" ]]; then
         has"uv" id-as"uv-completion" as"completion" atclone"uv generate-shell-completion zsh > _uv" atpull"%atclone" run-atpull pick"_uv" nocompile hhosu107/zinit-null \
         has"uvx" id-as"uvx-completion" as"completion" atclone"uvx generate-shell-completion zsh > _uvx" atpull"%atclone" run-atpull pick"_uvx" nocompile hhosu107/zinit-null
 
+    #    atload"__zshrc_zsh_history_substring_search_bindkey" zsh-users/zsh-history-substring-search \
     # last group
     zinit wait lucid for \
-        atload"__zshrc_zsh_history_substring_search_bindkey" zsh-users/zsh-history-substring-search \
         atload"zicompinit; zicdreplay" blockf zsh-users/zsh-autosuggestions \
         zdharma-continuum/fast-syntax-highlighting
 fi
