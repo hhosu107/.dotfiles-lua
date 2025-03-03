@@ -58,7 +58,7 @@ def get_post_actions(args):
         for f in ~/.zshrc; do
             if ! readlink $f >/dev/null; then
                 echo -e "\033[0;31m\
-    WARNING: $f is not a symbolic link to ~/.dotfiles.
+    WARNING: $f is not a symbolic link to ~/.dotfiles-lua.
     Please remove your local folder/file $f and try again.\033[0m"
                 echo -n "(Press any key to continue) "; read user_confirm
                 exit 1;
