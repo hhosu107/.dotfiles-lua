@@ -118,13 +118,9 @@ if [[ -f "${ZINIT_HOME}/zinit.zsh" ]]; then
     zinit wait lucid for \
         light-mode simnalamburt/zsh-expand-all
 
-    # sbin ice from git
-    zinit wait lucid for \
-        light-mode zdharma-continuum/zinit-annex-bin-gem-mode
-
     # fzf
     zinit for \
-        from'gh-r' sbin'fzf' junegunn/fzf \
+        sbin'fzf' junegunn/fzf \
         https://github.com/junegunn/fzf/raw/master/shell/{'completion','key-bindings'}.zsh
     zinit load tirr-c/zsh-env-setup
 
@@ -265,3 +261,5 @@ fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
