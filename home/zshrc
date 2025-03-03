@@ -126,6 +126,106 @@ fi
 # Etc
 #
 
+
+#
+# zsh-sensible
+#
+if (( $+commands[lsd] )); then
+  alias ls='lsd'
+  alias l='lsd -Al --date=relative --group-dirs=first --blocks=permission,user,size,date,name'
+  alias ll='lsd -l --date=relative --group-dirs=first --blocks=permission,user,size,date,name'
+  alias lt='lsd --tree --depth=2 --date=relative --group-dirs=first'
+else
+  alias l='ls -alh'
+  alias ll='ls -lh'
+fi
+alias rm='rm -I'
+alias mv='mv -i'
+alias cp='cp -i'
+
+HISTSIZE=90000
+SAVEHIST=90000
+HISTFILE=~/.zsh_history
+
+setopt auto_cd histignorealldups sharehistory
+zstyle ':completion:*' menu select
+zstyle ':completion:*' use-cache on
+# Substring completion
+zstyle ':completion:*' matcher-list 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+
+# Clear screen
+clear_screen() { tput clear }
+zle -N clear_screen
+bindkey '^s' clear_screen
+
+
+#
+# lscolors
+#
+export LS_COLORS="di=1;36:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=0;41:sg=30;46:tw=0;42:ow=30;43"
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+
+export LSCOLORS="Gxfxcxdxbxegedxbagxcad"
+export TIME_STYLE='long-iso'
+autoload -U colors && colors
+
+
+#
+# zsh-substring-completion
+#
+setopt complete_in_word
+setopt always_to_end
+WORDCHARS=''
+zmodload -i zsh/complist
+
+# Find current user in Windows
+export WINDOWS_CURRENT_USER=$(cmd.exe /c "echo %USERNAME%" 2>/dev/null | tr -d '\r')
+export windowsUserProfile=/mnt/c/Users/${WINDOWS_CURRENT_USER}
+
+#
+# WSL support
+#
+if [[ -f /proc/sys/fs/binfmt_misc/WSLInterop ]]; then
+  umask 022
+  alias open=explorer.exe
+  alias pbcopy=clip.exe
+  alias pbpaste='powershell.exe Get-Clipboard | sed "s/\r$//" | head -c -1'
+  alias code='${windowsUserProfile}/AppData/Local/Programs/Microsoft\ VS\ Code/code.exe'
+  alias wslexit='cmd.exe /c "wsl --shutdown"'
+fi
+
+
+#
+# zshrc
+#
+export DOCKER_BUILDKIT=1
+export AWS_SDK_LOAD_CONFIG=true
+
+# EDITOR이나 VISUAL 환경변수 안에 'vi' 라는 글자가 들어있으면 자동으로
+# emacs-like 키바인딩들이 해제되어서, ^A ^E 등을 모조리 쓸 수 없어진다.
+# 무슨짓이냐...
+#
+# References:
+#   https://stackoverflow.com/a/43087047
+#   https://github.com/zsh-users/zsh/blob/96a79938010073d14bd9db31924f7646968d2f4a/Src/Zle/zle_keymap.c#L1437-L1439
+#   https://github.com/yous/dotfiles/commit/c29bf215f5a8edc6123819944e1bf3336a4a6648
+if (( $+commands[vim] )); then
+  export EDITOR=vim
+  bindkey -e
+elif (( $+commands[nvim] )); then
+  export EDITOR=nvim
+  bindkey -e
+fi
+
+#
+# nvm
+#
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+[[ $- == *i* ]] && nvm use node
+
+
 # >>> command completion >>>
 # autoload -U +X bashcompinit && bashcompinit
 # <<< command completion <<<
