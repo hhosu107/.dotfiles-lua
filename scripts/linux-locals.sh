@@ -448,15 +448,15 @@ install_neovim() {
   local TMP_NVIM_DIR="$DOTFILES_TMPDIR/neovim"; mkdir -p $TMP_NVIM_DIR
   local ARCH=$(uname -m)
   local OS=$(uname -s)
-  local NVIM_APPIMAGE=""
+  local NVIM_FILENAME=""
 
   if [[ "$OS" == "Linux" ]]; then
       case "$ARCH" in
           x86_64)
-              NVIM_APPIMAGE="nvim-linux-x86_64.appimage"
+              NVIM_FILENAME="nvim-linux-x86_64.appimage"
               ;;
           aarch64|arm64)
-              NVIM_APPIMAGE="nvim-linux-arm64.appimage"
+              NVIM_FILENAME="nvim-linux-arm64.appimage"
               ;;
           *)
               echo -e "${COLOR_RED}Unsupported architecture: $ARCH${COLOR_NONE}"
@@ -466,43 +466,60 @@ install_neovim() {
   elif [[ "$OS" == "Darwin" ]]; then
       case "$ARCH" in
           x86_64)
-              NVIM_APPIMAGE="nvim-macos.appimage"
+              NVIM_FILENAME="nvim-macos-x86_64.appimage"
               ;;
           arm64)
-              NVIM_APPIMAGE="nvim-macos-arm64.appimage"
+              NVIM_FILENAME="nvim-macos-arm64.appimage"
               ;;
           *)
               echo -e "${COLOR_RED}Unsupported architecture: $ARCH${COLOR_NONE}"
               return 1
               ;;
       esac
+  elif [[ "$OS" == "MINGW64_NT-10.0" || "$OS" == "Windows_NT" ]]; then
+      NVIM_FILENAME="nvim-win64.zip"
   else
       echo -e "${COLOR_RED}Unsupported OS: $OS${COLOR_NONE}"
       return 1
   fi
 
-  local NVIM_DOWNLOAD_URL="https://github.com/neovim/neovim/releases/download/${NEOVIM_VERSION}/$NVIM_APPIMAGE"
+  local NVIM_DOWNLOAD_URL="https://github.com/neovim/neovim/releases/download/${NEOVIM_VERSION}/$NVIM_FILENAME"
 
   set -x
   cd $TMP_NVIM_DIR
   wget --backups=1 "$NVIM_DOWNLOAD_URL"  # always overwrite, having only one backup
 
-  chmod +x "$NVIM_APPIMAGE"
-  rm -rf "$TMP_NVIM_DIR/squashfs-root"
-  "./$NVIM_APPIMAGE" --appimage-extract >/dev/null  # into ./squashfs-root
+  if [[ "$OS" == "MINGW64_NT-10.0" || "$OS" == "Windows_NT" ]]; then # Windows 설치 처리
+    unzip "$NVIM_FILENAME" -d nvim-win64
+    local NEOVIM_DEST="$HOME/AppData/Local/nvim"
+    mkdir -p "$NEOVIM_DEST/bin"
+    cp -f "nvim-win64/Neovim/bin/nvim.exe" "$NEOVIM_DEST/bin/nvim.exe"
+    rm -rf "$NEOVIM_DEST"
+    cp -r "nvim-win64/Neovim/" "$NEOVIM_DEST"
+    rm -f "$PREFIX/bin/nvim.exe"
+    ln -sf "$NEOVIM_DEST/bin/nvim.exe" "$PREFIX/bin/nvim.exe"
+  else
+    chmod +x "$NVIM_FILENAME"
+    rm -rf "$TMP_NVIM_DIR/squashfs-root"
+    "./$NVIM_FILENAME" --appimage-extract >/dev/null  # into ./squashfs-root
 
-  # Install into ~/.local/neovim/ and put a symlink into ~/.local/bin
-  local NEOVIM_DEST="$HOME/.local/neovim"
-  echo -e "${COLOR_GREEN}[*] Copying neovim files to $NEOVIM_DEST ... ${COLOR_NONE}"
-  mkdir -p "$NEOVIM_DEST/bin/"
-  cp -f "squashfs-root/usr/bin/nvim" "$NEOVIM_DEST/bin/nvim" \
-    || (echo -e "${COLOR_RED}Copy failed, please kill all nvim instances. (killall nvim)${COLOR_NONE}"; exit 1)
-  rm -rf "$NEOVIM_DEST"
-  cp -r "squashfs-root/usr" "$NEOVIM_DEST"
-  rm -f "$PREFIX/bin/nvim"
-  ln -sf "$NEOVIM_DEST/bin/nvim" "$PREFIX/bin/nvim"
+    # Install into ~/.local/neovim/ and put a symlink into ~/.local/bin
+    local NEOVIM_DEST="$HOME/.local/neovim"
+    echo -e "${COLOR_GREEN}[*] Copying neovim files to $NEOVIM_DEST ... ${COLOR_NONE}"
+    mkdir -p "$NEOVIM_DEST/bin/"
+    cp -f "squashfs-root/usr/bin/nvim" "$NEOVIM_DEST/bin/nvim" \
+      || (echo -e "${COLOR_RED}Copy failed, please kill all nvim instances. (killall nvim)${COLOR_NONE}"; exit 1)
+    rm -rf "$NEOVIM_DEST"
+    cp -r "squashfs-root/usr" "$NEOVIM_DEST"
+    rm -f "$PREFIX/bin/nvim"
+    ln -sf "$NEOVIM_DEST/bin/nvim" "$PREFIX/bin/nvim"
+  fi
 
-  "$PREFIX/bin/nvim" --version | head -n3
+  if [[ "$OS" == "MINGW64_NT-10.0" || "$OS" == "Windows_NT" ]]; then
+    "$PREFIX/bin/nvim.exe" --version | head -n3
+  else
+    "$PREFIX/bin/nvim" --version | head -n3
+  fi
 }
 
 install_just() {
