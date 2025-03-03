@@ -119,8 +119,8 @@ if [[ -f "${ZINIT_HOME}/zinit.zsh" ]]; then
         light-mode simnalamburt/zsh-expand-all
 
     # fzf
-    zinit for \
-        sbin'fzf' junegunn/fzf \
+    zinit wait lucid for \
+        from'gh-r' sbin'fzf' junegunn/fzf \
         https://github.com/junegunn/fzf/raw/master/shell/{'completion','key-bindings'}.zsh
     zinit load tirr-c/zsh-env-setup
     zinit load tirr-c/git-select-branch
@@ -137,8 +137,9 @@ if [[ -f "${ZINIT_HOME}/zinit.zsh" ]]; then
         light-mode MenkeTechnologies/zsh-cargo-completion \
         has"helm" id-as"helm-completion" as"completion" atclone"helm completion zsh > _helm" atpull"%atclone" run-atpull pick"_helm" hhosu107/zinit-null \
         has"poetry" id-as"poetry-completion" as"completion" atclone"poetry completions zsh > _poetry" atpull"%atclone" run-atpull pick"_poetry" hhosu107/zinit-null \
-        has"uv" id-as"uv-completion" as"completion" atclone"uv generate-shell-completion zsh > _uv" atpull"%atclone" run-atpull pick"_uv" nocompile hhosu107/zinit-null \
-        has"uvx" id-as"uvx-completion" as"completion" atclone"uvx generate-shell-completion zsh > _uvx" atpull"%atclone" run-atpull pick"_uvx" nocompile hhosu107/zinit-null
+        has"uv" id-as"uv-completion" as"completion" atclone"uv generate-shell-completion zsh > _uv" atpull"%atclone" run-atpull pick"_uv" nocompile hhosu107/zinit-null
+
+    #    has"uvx" id-as"uvx-completion" as"completion" atclone"uvx generate-shell-completion zsh > _uvx" atpull"%atclone" run-atpull pick"_uvx" nocompile hhosu107/zinit-null
 
     #    atload"__zshrc_zsh_history_substring_search_bindkey" zsh-users/zsh-history-substring-search \
     # last group
