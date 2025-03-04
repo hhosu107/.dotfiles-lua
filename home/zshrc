@@ -118,10 +118,16 @@ if [[ -f "${ZINIT_HOME}/zinit.zsh" ]]; then
     zinit wait lucid for \
         light-mode simnalamburt/zsh-expand-all
 
+    # sbin ice from git
+    zinit for \
+      light-mode zdharma-continuum/zinit-annex-bin-gem-node
     # fzf
+    #
     zinit wait lucid for \
-        from'gh-r' sbin'fzf' junegunn/fzf \
-        https://github.com/junegunn/fzf/raw/master/shell/{'completion','key-bindings'}.zsh
+        light-mode junegunn/fzf \
+        light-mode https://github.com/junegunn/fzf/raw/master/shell/{'completion','key-bindings'}.zsh
+
+    # other zshenv and git tool
     zinit load tirr-c/zsh-env-setup
     zinit load tirr-c/git-select-branch
 
