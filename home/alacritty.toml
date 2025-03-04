@@ -128,10 +128,10 @@
 
 [font]
   size = 18.0 # 변경된 font size
-  normal.family = "CaskaydiaMono Nerd Font" # 변경된 font family
-  bold.family = "CaskaydiaMono Nerd Font"
-  italic.family = "CaskaydiaMono Nerd Font"
-  bold_italic.family = "CaskaydiaMono Nerd Font"
+  normal.family = "MesloLGS NF" # 변경된 font family
+  bold.family = "MesloLGS NF"
+  italic.family = "MesloLGS NF"
+  bold_italic.family = "MesloLGS NF"
 
 [keyboard]
 
