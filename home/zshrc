@@ -272,3 +272,21 @@ fi
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # export FZF_DEFAULT_OPTS="--height=40% --layout=reverse --info=inline --border --margin=1 --padding=1"
+
+# pnpm
+# Install: with corepack
+# nvm install-latest-npm
+# npm install -g corepack@latest
+# corepack enable pnpm
+export PNPM_HOME="/Users/cs.park/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+
+# claude code (performance)
+# use this alias only if pnpm exists
+if command -v pnpm &> /dev/null; then
+  alias claude='pnpx @anthropic-ai/claude-code'
+fi
