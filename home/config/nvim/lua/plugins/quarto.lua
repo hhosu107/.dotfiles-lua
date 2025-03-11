@@ -9,7 +9,7 @@ return {
         quarto.setup({
             lspFeatures = {
                 -- NOTE: put whatever languages you want here:
-                languages = { "r", "python", "rust", "markdown" },
+                languages = { "r", "python", "rust", "markdown", "golang" },
                 chunks = "all",
                 diagnostics = {
                     enabled = true,
