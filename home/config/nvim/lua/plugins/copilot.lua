@@ -104,6 +104,21 @@ return {
           },
         },
       })
+
+      cmp.setup.cmdline(':', { -- ':' command line에 대한 설정
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = cmp.config.sources({
+          { name = 'cmdline' }, -- ':' command line 소스 추가
+          { name = "path" },
+        })
+      })
+
+      cmp.setup.cmdline('/', { -- '/' search line에 대한 설정
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = cmp.config.sources({
+          { name = 'buffer' }, -- '/' search line 소스 추가
+        })
+      })
     end,
   },
 }
