@@ -26,7 +26,6 @@
     "~/.config/wezterm" : "home/config/wezterm",
     "~/.wezterm.lua" : "home/wezterm.lua",
 
-    "~/.config/alacritty" : "home/config/alacritty",
     "~/.config/alacritty/alacritty.toml": "home/alacritty.toml",
     "~/.config/alacritty/dracula.toml": "home/config/alacritty/colors/dracula.toml",
 
