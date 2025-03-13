@@ -77,6 +77,11 @@ https://velog.io/@selemium/series/Online-Judge-System
 # (Open port of WSL; Reference:
 [here](https://github.com/Alex-D/dotfiles#wsl-bridge))
 
+# WSL LTS kernel that makes docker desktop work
+
+Use [here](https://github.com/Nevuly/WSL2-Linux-Kernel-Rolling-LTS);
+[This comment](https://github.com/microsoft/WSL/issues/11771#issuecomment-2444995937) suggested to do that.
+
 ## On WSL
 #!/bin/zsh
 windowsUserProfile=/mnt/c/Users/$(cmd.exe /c "echo %USERNAME%" 2>/dev/null | tr -d '\r')
