@@ -290,3 +290,8 @@ esac
 if command -v pnpm &> /dev/null; then
   alias claude='pnpx @anthropic-ai/claude-code'
 fi
+# The following lines have been added by Docker Desktop to enable Docker CLI completions.
+fpath=(/Users/cs.park/.docker/completions $fpath)
+autoload -Uz compinit
+compinit
+# End of Docker CLI completions
