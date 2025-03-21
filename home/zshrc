@@ -295,7 +295,7 @@ fi
 # if darwin
 if [ "$(uname)" = "Darwin" ]; then
   # if bash
-  export fpath="~/.docker/completions:$fpath"
+  export FPATH="~/.docker/completions:$FPATH"
   autoload -Uz compinit
   compinit
 fi
