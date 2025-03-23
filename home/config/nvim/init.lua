@@ -57,6 +57,26 @@ o.softtabstop = 2
 o.shiftwidth = 2
 o.expandtab = true
 
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "python",
+  callback = function()
+    o.expandtab = true
+    o.tabstop = 4
+    o.shiftwidth = 4
+    o.softtabstop = 4
+  end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "go",
+  callback = function()
+    o.expandtab = true
+    o.tabstop = 8
+    o.shiftwidth = 8
+    o.softtabstop = 8
+  end,
+})
+
 -- for files whose filetype is one of make and textproto, do not expand tab.
 vim.cmd([[
     autocmd FileType make,textproto setlocal noexpandtab
