@@ -27,8 +27,7 @@ install_essential_packages() {
     sudo apt-get install -y ${packages[@]}
 
     # python
-    sudo apt-get install -y python-dev virtualenv virtualenvwrapper
-    sudo apt-get install -y python-pip python3-pip
+    sudo apt-get install -y python3-pip
 }
 
 install_ppa_git() {
