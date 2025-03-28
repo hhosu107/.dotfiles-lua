@@ -40,7 +40,10 @@ Host github.com-hhosu107
 
   Include config.local
 
+# Needs netcat-openbsd installed, 1password login required
 Host himari
-  HostName himari.tirr.dev
+  HostName none  # use ProxyCommand
+  User charlese
+  ProxyCommand bash -c 'exec nc $(op read op://$(op vault list --format json | jq -r ".[] | select(.name == \"아지트\") | .id")/himari-private-ip/password) 22'
   ForwardAgent yes
   AddKeysToAgent yes
