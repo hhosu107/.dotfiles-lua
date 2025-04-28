@@ -70,10 +70,17 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "go",
   callback = function()
-    o.expandtab = true
+    o.expandtab = false
     o.tabstop = 8
     o.shiftwidth = 8
     o.softtabstop = 8
+  end,
+})
+
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = { "*.go"},
+  callback = function()
+    vim.cmd([[%s/^\s\{8}/\t/ge]])
   end,
 })
 

@@ -153,6 +153,9 @@ if [[ -f "${ZINIT_HOME}/zinit.zsh" ]]; then
         zdharma-continuum/fast-syntax-highlighting
 fi
 ### End of Zinit plugins
+#
+source ~/.zinit/plugins/zsh-users---zsh-autosuggestions/zsh-autosuggestions.zsh
+source ~/.zinit/plugins/zdharma-continuum---fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
 
 #
 # Etc
