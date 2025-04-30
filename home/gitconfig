@@ -12,7 +12,7 @@
     precomposeunicode = yes
 [init]
     defaultBranch = main
-    defaultRefFormat = reftable
+    # defaultRefFormat = reftable
 [log]
     date = iso8601
 [color]
