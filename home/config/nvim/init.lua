@@ -62,7 +62,7 @@ vim.api.nvim_create_autocmd("FileType", {
   callback = function()
     o.expandtab = true
     o.tabstop = 4
-    o.shiftwidth = 4
+    o.shiftwidth = 2  --  From :help ft-python-indent, let g:pyindent_open_paren = 'shiftwidth() * 2'
     o.softtabstop = 4
   end,
 })
