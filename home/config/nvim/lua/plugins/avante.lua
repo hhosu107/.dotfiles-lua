@@ -4,12 +4,22 @@ return {
     lazy = false,
     opts = {
         -- add any opts here
-        provider = "copilot",
-        auto_suggestions_provider = "gemini",
+      providers = {
         openai = { model = "gpt-4o-mini" },
-        gemini = { model = "gemini-2.0-flash", max_tokens = 32768 },
-        copilot = { model = "claude-3.7-sonnet", max_tokens = 32768 },
-        vendors = {
+        gemini = {
+          model = "gemini-2.5-flash",
+          extra_request_body = {
+            max_tokens = 32768,
+          },
+          api_key_name = "GEMINI_API_KEY"
+        },
+        copilot = {
+          model = "claude-3.7-sonnet",
+          extra_request_body = {
+            max_tokens = 32768
+          }
+        },
+        -- vendors = {
             ---@type AvanteProvider
             -- ollama = {
             --     __inherited_from = "openai",
@@ -35,10 +45,11 @@ return {
             --     model = "deepseek-chat",
             --     max_tokens = 32768,
             -- },
-        },
+        -- },
         behavior = {
             enable_cursor_planning_mode = true,
         },
+      }
     },
     build = "make", -- This is optional, recommended tho. Also note that this will block the startup for a bit since we are compiling bindings in Rust.
     dependencies = {
