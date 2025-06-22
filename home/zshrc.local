@@ -107,6 +107,7 @@ alias activate_tf='source ~/venv/tf37/bin/activate && nvm use node'
 alias activate_torch='source ~/venv/torch38/bin/activate && nvm use node'
 alias activate_py311='source ~/venv/py311/bin/activate && nvm use node'
 # alias activate_py38='source ~/ubuntu-py/bin/activate && nvm use node'
+alias activate_pyadk='source ~/venv/google-adk/bin/activate && nvm use node'
 
 ## Shorten path to Desktop
 export DESKTOP=${windowsUserProfile}/Desktop
