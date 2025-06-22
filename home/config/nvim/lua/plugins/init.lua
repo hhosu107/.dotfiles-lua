@@ -160,7 +160,10 @@ return {
             require("dapui").setup()
         end,
     },
-    "williamboman/mason.nvim",
+    {
+      'williamboman/mason.nvim',
+      build = ':MasonUpdate',
+    },
     "williamboman/mason-lspconfig.nvim",
     {
         "nvim-treesitter/nvim-treesitter",
