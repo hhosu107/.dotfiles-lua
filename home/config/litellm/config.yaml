@@ -1,0 +1,5 @@
+model_list:
+  - model_name: claude-sonnet-4
+    litellm_params:
+      model: github_copilot/claude-sonnet-4
+      extra_headers: {"Editor-Version": "Neovim/0.10.2", "Copilot-Integration-Id": "vscode-chat"}

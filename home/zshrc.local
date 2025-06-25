@@ -86,8 +86,8 @@ export XMODIFIERS='@im=kime'
 ## pyenv environments
 
 # Pyenv environment variables (Needed because of GPU usages)
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
+# export PYENV_ROOT="$HOME/.pyenv"
+# export PATH="$PYENV_ROOT/bin:$PATH"
 # Pyenv initialization
 # if command -v pyenv 1>/dev/null 2>&1; then
 #   eval "$(pyenv init --path)"
@@ -108,6 +108,7 @@ alias activate_torch='source ~/venv/torch38/bin/activate && nvm use node'
 alias activate_py311='source ~/venv/py311/bin/activate && nvm use node'
 # alias activate_py38='source ~/ubuntu-py/bin/activate && nvm use node'
 alias activate_pyadk='source ~/venv/google-adk/bin/activate && nvm use node'
+alias activate_py313='source ~/venv/py313/bin/activate && nvm use node'
 
 ## Shorten path to Desktop
 export DESKTOP=${windowsUserProfile}/Desktop
@@ -205,3 +206,12 @@ export watch_nslookup='watch nslookup -q=TXT _acme-challenge.charlese.dev'
 if [[ -f ~/.zshrc.local.local ]]; then
   source ~/.zshrc.local.local
 fi
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '~/google-cloud-sdk/path.zsh.inc' ]; then . '~/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '~/google-cloud-sdk/completion.zsh.inc' ]; then . '~/google-cloud-sdk/completion.zsh.inc'; fi
+
+# direnv hook
+eval "$(direnv hook zsh)"

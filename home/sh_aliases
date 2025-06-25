@@ -142,13 +142,17 @@ alias ㅣㄴ=ls
 
 # git
 function git_current_branch {
-    git branch | grep \* | cut -d ' ' -f2
+    git branch --show-current
 }
 
 alias gdhh='git diff HEAD^ HEAD'
 
-alias gdo='git diff origin/$(git_current_branch)'
-alias gpsup='git push -u origin $(git_current_branch)'
+gdo () {
+  git diff origin/$(git_current_branch)
+}
+gpsup () {
+  git push -u origin $(git_current_branch)
+}
 alias gc!!='git commit -v --amend --no-verify'
 alias gca!!='git commit -v -a --amend --no-verify'
 alias gp!!='git push --force-with-lease --no-verify'
@@ -157,8 +161,12 @@ alias grhs='git reset --soft'
 alias grhs1='git reset --soft HEAD~1'
 alias grhsd='git reset --soft HEAD'
 alias gsm='git switch master'
-alias grbo='git rebase origin/$(git_current_branch)'
-alias grbu='git rebase upstream/$(git_current_branch)'
+grbo () {
+  git rebase origin/$(git_current_branch)
+}
+grbu () {
+  git rebase upstream/$(git_current_branch)
+}
 alias grbum='git rebase upstream/master'
 alias grbud='git rebase upstream/develop'
 alias grbim='git rebase -i master'

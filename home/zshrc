@@ -88,14 +88,7 @@ if [[ -f "${ZINIT_HOME}/zinit.zsh" ]]; then
         sed 's/alias k\(\w*\)a\(\w\?\)=/alias k\1ap\2=/g' .kubectl_aliases > .kubectl_aliases_mod
     }
 
-    function __zshrc_pyenv_atload {
-        eval "$(pyenv init --path zsh)"
-        command pyenv rehash >/dev/null &!
-    }
-
     zinit wait lucid for \
-        has"pyenv" id-as"pyenv" atclone"pyenv init - --no-rehash zsh > pyenv.zsh" atpull"%atclone" run-atpull pick"pyenv.zsh" nocompile"!" atload"!__zshrc_pyenv_atload" zdharma-continuum/null \
-        if"[ -d ~/.pyenv/plugins/pyenv-virtualenv/ ]" id-as"pyenv-virtualenv" atclone"pyenv virtualenv-init - zsh > pyenv-virtualenv.zsh" atpull"%atclone" run-atpull pick"pyenv-virtualenv.zsh" nocompile"!" zdharma-continuum/null \
         rupa/z \
         if"[ -f ~/.asdf/asdf.sh ]" id-as"asdf" pick"$HOME/.asdf/asdf.sh" nocompile zdharma-continuum/null
         # has"fzf" id-as"fzf" multisrc"(completion|key-bindings).zsh" compile"(completion|key-bindings).zsh" svn https://github.com/junegunn/fzf/trunk/shell

@@ -29,6 +29,7 @@
     "~/.config/alacritty/alacritty.toml": "home/alacritty.toml",
     "~/.config/alacritty/dracula.toml": "home/config/alacritty/colors/dracula.toml",
 
-    "~/.config/systemd/user/ssh-agent.service" : "systemd/ssh-agent.service"
+    "~/.config/systemd/user/ssh-agent.service" : "systemd/ssh-agent.service",
+    "~/.config/litellm/config.yaml": "home/config/litellm/config.yaml"
 }
 
