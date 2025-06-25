@@ -110,6 +110,10 @@ alias activate_py311='source ~/venv/py311/bin/activate && nvm use node'
 alias activate_pyadk='source ~/venv/google-adk/bin/activate && nvm use node'
 alias activate_py313='source ~/venv/py313/bin/activate && nvm use node'
 
+if [[ -f ~/venv/latest/bin/activate ]]; then
+  source ~/venv/latest/bin/activate && nvm use node
+fi
+
 ## Shorten path to Desktop
 export DESKTOP=${windowsUserProfile}/Desktop
 
