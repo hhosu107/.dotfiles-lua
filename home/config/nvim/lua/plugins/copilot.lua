@@ -35,6 +35,15 @@ return {
       vim.g.copilot_active_config_path = vim.g.copilot_active_config_path or nil
 
       local function switch_copilot_context()
+        -- 현재 버퍼의 전체 파일 경로를 가져옵니다.
+        local current_file_path = vim.fn.expand('%:p')
+
+        -- 만약 버퍼에 연결된 파일이 없다면 (예: Telescope, nvim-tree, 새 버퍼 등)
+        -- 아무 작업도 하지 않고 함수를 종료합니다. 이것이 가장 중요한 변경점입니다.
+        if current_file_path == '' then
+          return
+        end
+
         local required_config_path
         if string.find(vim.fn.expand('%:p'), company_project_path, 1, true) then
           required_config_path = company_config_path
