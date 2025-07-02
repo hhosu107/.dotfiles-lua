@@ -1,5 +1,7 @@
 -- lsp.lua 수정본
-require('mason').setup({})
+require('mason').setup({
+  PATH = "append"
+})
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.foldingRange = {
