@@ -283,7 +283,6 @@ esac
 # claude code (performance)
 # use this alias only if pnpm exists
 if command -v pnpm &> /dev/null; then
-  alias claude='pnpx @anthropic-ai/claude-code'
 fi
 
 # The following lines have been added by Docker Desktop to enable Docker CLI completions.
@@ -291,3 +290,6 @@ fpath=(~/.docker/completions $fpath)
 autoload -Uz compinit
 compinit
 # End of Docker CLI completions
+
+# claude code
+alias claude="~/.claude/local/claude"

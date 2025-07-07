@@ -68,6 +68,17 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 vim.api.nvim_create_autocmd("FileType", {
+  pattern = "make",
+  callback = function()
+    o.expandtab = false
+    o.tabstop = 8
+    o.shiftwidth = 8
+    o.softtabstop = 8
+  end,
+})
+
+
+vim.api.nvim_create_autocmd("FileType", {
   pattern = "go",
   callback = function()
     o.expandtab = false
