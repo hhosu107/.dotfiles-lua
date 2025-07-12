@@ -2,5 +2,19 @@
   "preferredEditor": "vim",
   "usageStatisticsEnabled": false,
   "theme": "GitHub",
-  "selectedAuthType": "vertex-ai"
+  "selectedAuthType": "oauth-personal",
+  "mcpServers": {
+    "mcp-local-rag": {
+      "command": "docker",
+      "args": [
+        "run",
+        "--rm",
+        "-i",
+        "--init",
+        "-e",
+        "DOCKER_CONTAINER=true",
+        "ghcr.io/nkapila6/mcp-local-rag:latest"
+      ]
+    }
+  }
 }
