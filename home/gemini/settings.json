@@ -16,6 +16,6 @@
         "ghcr.io/nkapila6/mcp-local-rag:latest"
       ]
     }
-  }
+  },
   "selectedAuthType": "oauth-personal"
 }
