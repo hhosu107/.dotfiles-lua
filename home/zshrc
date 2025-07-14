@@ -281,15 +281,14 @@ esac
 if command -v pnpm &> /dev/null; then
 fi
 
-# The following lines have been added by Docker Desktop to enable Docker CLI completions.
-fpath=(~/.docker/completions $fpath)
-autoload -Uz compinit
-compinit
-# End of Docker CLI completions
-
 # claude code
 alias claude="~/.claude/local/claude"
 # local settings
 if [ -f ~/.zshrc.local ]; then
     source ~/.zshrc.local
 fi
+# The following lines have been added by Docker Desktop to enable Docker CLI completions.
+fpath=(/Users/cs.park/.docker/completions $fpath)
+autoload -Uz compinit
+compinit
+# End of Docker CLI completions
