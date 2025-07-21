@@ -36,6 +36,7 @@
     "~/.gemini/GEMINI.md" : "home/claude/CLAUDE.md",
 
     "~/.claude/CLAUDE.md" : "home/claude/CLAUDE.md",
+    "~/.claude/settings.json" : "home/claude/settings.json",
 
     "~/.config/alacritty/alacritty.toml": "home/alacritty.toml",
     "~/.config/alacritty/dracula.toml": "home/config/alacritty/colors/dracula.toml",
