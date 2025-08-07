@@ -269,7 +269,7 @@ export NVM_DIR="$HOME/.nvm"
 # nvm install-latest-npm
 # npm install -g corepack@latest
 # corepack enable pnpm
-export PNPM_HOME="/Users/cs.park/Library/pnpm"
+export PNPM_HOME="~/Library/pnpm"
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
@@ -288,7 +288,7 @@ if [ -f ~/.zshrc.local ]; then
     source ~/.zshrc.local
 fi
 # The following lines have been added by Docker Desktop to enable Docker CLI completions.
-fpath=(/Users/cs.park/.docker/completions $fpath)
+fpath=(~/.docker/completions $fpath)
 autoload -Uz compinit
 compinit
 # End of Docker CLI completions
