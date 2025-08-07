@@ -44,3 +44,6 @@ $RECYCLE.BIN/
 
 # vim-obsession
 Session.vim
+
+# specstory
+.specstory

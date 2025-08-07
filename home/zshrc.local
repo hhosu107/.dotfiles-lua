@@ -207,10 +207,6 @@ export lets_encrypt_renew='sudo certbot certonly --manual -d charlese.dev -d "*.
 export certbot_renew='sudo certbot renew'
 export watch_nslookup='watch nslookup -q=TXT _acme-challenge.charlese.dev'
 
-if [[ -f ~/.zshrc.local.local ]]; then
-  source ~/.zshrc.local.local
-fi
-
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '~/google-cloud-sdk/path.zsh.inc' ]; then . '~/google-cloud-sdk/path.zsh.inc'; fi
 
@@ -219,3 +215,7 @@ if [ -f '~/google-cloud-sdk/completion.zsh.inc' ]; then . '~/google-cloud-sdk/co
 
 # direnv hook
 eval "$(direnv hook zsh)"
+
+if [[ -f ~/.zshrc.local.local ]]; then
+  source ~/.zshrc.local.local
+fi
