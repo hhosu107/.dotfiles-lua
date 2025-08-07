@@ -9,7 +9,7 @@ capabilities.textDocument.foldingRange = {
     lineFoldingOnly = true
 }
 
-vim.lsp.set_log_level("debug")  -- avoid lsp log is too large issue
+vim.lsp.set_log_level("WARN")  -- avoid lsp log is too large issue
 
 -- mason-lspconfig.setup() 함수 내부에 setup_handlers를 포함시킵니다.
 require('mason-lspconfig').setup {
