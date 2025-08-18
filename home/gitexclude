@@ -47,3 +47,8 @@ Session.vim
 
 # specstory
 .specstory
+.cursorindexingignore
+
+# claude-code instruction markdown files
+**/PLAN.md
+**/SPEC.md
