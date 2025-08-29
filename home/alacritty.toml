@@ -132,6 +132,10 @@
   bold.family = "MesloLGS NF"
   italic.family = "MesloLGS NF"
   bold_italic.family = "MesloLGS NF"
+# normal.family = "Bon Google Sans Code" # 변경된 font family
+# bold.family = "Bon Google Sans Code"
+# italic.family = "Bon Google Sans Code"
+# bold_italic.family = "Bon Google Sans Code"
 
 [keyboard]
 

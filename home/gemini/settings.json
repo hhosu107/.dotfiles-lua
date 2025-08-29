@@ -2,7 +2,7 @@
   "preferredEditor": "vim",
   "usageStatisticsEnabled": false,
   "theme": "GitHub",
-  "selectedAuthType": "oauth-personal",
+  "selectedAuthType": "gemini-api-key",
   "mcpServers": {
     "mcp-local-rag": {
       "command": "docker",
